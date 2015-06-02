@@ -1,0 +1,138 @@
+<div class="center">
+  <h2 style="text-align:center">Media anuala este</h2>
+  <span id="overallaverage">
+    {{overallaverage}}
+  </span>
+  <!--Subject in Subjects-->
+  <!--ng-if="subjectid%4==0"-->
+  <div class="subjectcontainer" ng-repeat="(subjectid,subject) in subjects track by $index">
+
+    <div class="input-group gradetitlebar">
+      
+      <div class="deletesubjectbutton" ng-show="subjects[subjectid].deletemodeon" ng-click="deleteSubject(subjectid)">
+        <div class="deletesubjecttext">Sterge Aceasta Materie</div>
+      </div>
+
+      <!--Average Button-->
+      <span class="input-group-btn">
+          <button class="btn btn-default overallbtn btn-info" type="button" ng-show="subject.overallgrade">
+          {{round(subject.overallgrade)}}
+          </button>
+          <button class="btn btn-default overallbtn btn-info" type="button" ng-show="!subject.overallgrade">
+          -
+          </button>
+        </span>
+      <!--Average Button-->
+
+      <!--Course Name-->
+      <input type="text" class="form-control subjectname"placeholder="Materie" ng-model="subject.name">
+      <!--Course Name-->
+
+      <!--Wanted Average Button-->
+        <span class="input-group-btn">
+          <input class="btn btn-default overallbtn btn-success" type="text" placeholder="" ng-model="val" ng-change="calculateWantedGrades(subjectid,val)" ng-value="val=round(subject.overallwanted)"></input>
+        </span>
+      <!--Wanted Average Button-->
+
+    </div>
+
+    <div class="gradecontainer">
+
+      <!--Grade in Grades-->
+
+      <div class="btn-group-vertical gradecontent" ng-repeat="(gradeid,grade) in subject.grades track by $index">
+      <div class="deletegradebutton" ng-show="subjects[subjectid].deletemodeon" ng-click="deleteGrade(subjectid,gradeid)">
+        <i class="fa fa-close" style="font-size:32px;line-height:89px;"></i>
+      </div>
+
+        <button type="button" class="btn btn-default btn-sm" ng-disabled="subject.grades[gradeid]==10" ng-click="gradeUp(subjectid,gradeid)">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+          </button>
+
+          <input type="text" class="btn btn-default gradebtn" ng-model="value" ng-change="gradeInput(subjectid,gradeid,value)" ng-value="value=subject.grades[gradeid]"/>
+
+          <button type="button" class="btn btn-default btn-sm" ng-disabled="subject.grades[gradeid]==1" ng-click="gradeDown(subjectid,gradeid)">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </button>
+
+      </div>
+      <!--Grade in Grades-->
+
+      <!--Final Grade in Final Grades-->
+
+      <div class="btn-group-vertical gradecontent" ng-show="subjects[subjectid].hasfgrade">
+      <div class="deletegradebutton" ng-show="subjects[subjectid].deletemodeon" ng-click="deleteFGrade(subjectid)">
+        <i class="fa fa-close" style="font-size:32px;line-height:89px;"></i>
+      </div>
+
+        <button type="button" class="btn btn-warning btn-sm" ng-disabled="subject.fgrade==10" ng-click="fgradeUp(subjectid)">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+          </button>
+
+          <input type="text" class="btn btn-warning gradebtn" ng-model="value" ng-change="fgradeInput(subjectid,value)" ng-value="value=subject.fgrade"/>
+
+          <button type="button" class="btn btn-warning btn-sm" ng-disabled="subject.fgrade==1" ng-click="fgradeDown(subjectid)">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </button>
+
+      </div>
+      <!--Final Grade in Final Grades-->
+
+      <!--Wanted Grade in Wanted Grades-->
+      <div class="btn-group-vertical gradecontent" ng-repeat="(wgradeid,wgrade) in subject.wantedgrades track by $index">
+
+        <button type="button" class="btn btn-success btn-sm" ng-disabled="subject.wantedgrades[wgradeid]==10" ng-click="wgradeUp(subjectid,wgradeid)">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+          </button>
+
+          <button type="text" class="btn btn-success gradebtn">
+            {{wgrade}}
+          </button>
+
+          <button type="button" class="btn btn-success btn-sm" ng-disabled="subject.wantedgrades[wgradeid]==1" ng-click="wgradeDown(subjectid,wgradeid)">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </button>
+
+      </div>
+      <!--Wanted Grade in Wanted Grades-->
+
+      <!--Adding Buttons-->
+      <div class="btn-group-vertical gradecontent">
+
+          <button type="button" class="btn btn-default btn-sm" ng-click="addGrade(subjectid)" ng-disabled="subjects[subjectid].deletemodeon">
+            <span class="glyphicon glyphicon-plus"></span>
+         </button>
+
+          <button type="button" class="btn btn-default btn-sm btn-warning" ng-click="addFGrade(subjectid)" ng-disabled="subjects[subjectid].hasfgrade||subjects[subjectid].deletemodeon">
+            <span class="glyphicon glyphicon-plus"></span>
+         </button>
+
+      </div>
+      <!--Adding Buttons-->
+      
+      <div ng-show="subjects[subjectid].deletemodeon" style="color:#E74C3C;font-size:20px;"><i class="fa fa-trash"></i><br>Sterge notele prin a da click pe ele</div>
+
+    </div>
+
+    <div class="subjectmenubox">
+      <div class="menuoption" ng-click="switchDeleteMode(subjectid)" ng-class="{'on': subjects[subjectid].deletemodeon }"><i class="fa fa-trash" style="line-height:36px;font-size: 30px;"></i></div>
+      <div class="menuoption" ng-click="switchWantedGradesMode(subjectid)" ng-class="{'on': subjects[subjectid].wantedmode==2 }" style="border-bottom: 1px solid #eee;border-top: 1px solid #eee;">Medie Dorita Dinamica</div>
+      <div class="menuoption" ng-click="switchLockSubject(subjectid)" ng-class="{'on': subjects[subjectid].locked }">Medie Dorita Blocata</div>
+    </div>
+
+    <div class="subjectmenutrigger" ng-click="openSubjectMenu(subjectid)">
+      <i class="fa fa-angle-down"style="font-size:50px;line-height:30px;"></i>
+    </div>
+
+  </div>
+  <!--Subject in Subjects-->
+      
+  <!--Add Subject Button-->
+  <div class="subjectcontainer addingcontainer">
+    <button type="button" class="btn btn-default btn-lg addbox" ng-click="addSubject()">
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
+  </div>
+  <!--Add Subject Button-->
+
+</div>

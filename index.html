@@ -1,0 +1,103 @@
+<html lang="en" ng-app="GradebookApp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AV Grades</title>
+  <link href="styles/bootstrap.min.css" rel="stylesheet">
+  <link href="styles/font-awesome.min.css" rel="stylesheet">
+  <link href="styles/main.css" rel="stylesheet">
+  <link href="styles/menu.css" rel="stylesheet">
+  <link href="styles/alertify.core.css" rel="stylesheet">
+  <link href="styles/alertify.bootstrap.css" rel="stylesheet">
+  <script src="js/angular.min.js"></script>
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script src="js/angular-routes.js"></script>
+  <script src="js/alertify.min.js"></script>
+  <script src="js/app.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div ng-controller="GradebookController">
+
+  <div id="newmode" ng-show="!options.oldmode">
+    <div id="topbar">
+      <div id="logo">
+        <a href="#/">
+          <img src="img/logo.png" alt="AV Grades Logo" style="height:40px;">
+        </a>
+      </div>
+      <div id="info">
+        Add some grades below and watch magic happen.
+      </div>
+      <div id="topbuttons">
+        <a href="#/tutorial"><i class="fa fa-question topbutton"></i></a>
+        <a href="#/"><i class="fa fa-star topbutton"></i></a>
+        <a href="#/options"><i class="fa fa-gear topbutton"></i></a>
+      </div>
+    </div>
+    <div id="emptyblock"></div>
+  </div>
+
+  <div class="center" ng-show="options.oldmode">
+    <div class="page-header" style="margin-top:20px;">
+      <h1>Welcome to AV Grades!<br/><small>Add your grades below and watch magic happen.</small></h1>
+      <div id="topbuttonsold">
+        <a href="#/tutorial"><i class="fa fa-question topbuttonold"></i></a>
+        <a href="#/"><i class="fa fa-star topbuttonold"></i></a>
+        <a href="#/options"><i class="fa fa-gear topbuttonold"></i></a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="main" ng-view>
+</div>
+
+<div id="footer">
+  Paun Dragos 2015 - All rights reserved.
+</div>
+
+</body>
+
+<script>
+/*
+I can't believe this moment has come, but: Angular, you finally broke me.
+I cannot even comprehend how retarded a framework can be when it doesn't allow
+you to send data outside the controller. I mean, it's okay that you don't have
+DOM control functions and it's okay that we need to do it ourselves, but at least
+give us some way to use outside plugins to do our jobs.
+3 hours. 3 fucking hours. 3 fucking hours to write something that could be done
+with jQuery in, what, 10 lines?
+I'm done. This is the last thing I ever do with Angular. I'm bashing my head on
+the keyboard as how much this framework overcomplicates stuff. I don't want to see it,
+hear it, or deal with it ever again.
+With that being said, here are 10 shitty lines made with shitty jQuery because angular
+doesn't fucking allow me to animate a box sliding down.
+Enjoy.
+*/
+$(document).on('click', '.subjectmenutrigger', function() {
+  if($( this ).children(".fa").hasClass("fa-angle-down")){
+    $( this ).parent().children(".subjectmenubox").slideDown();
+    $( this ).children(".fa").removeClass("fa-angle-down");
+    $( this ).children(".fa").addClass("fa-angle-up");    
+  }
+  else if($( this ).children(".fa").hasClass("fa-angle-up")){
+    $( this ).parent().children(".subjectmenubox").slideUp();
+    $( this ).children(".fa").removeClass("fa-angle-up");
+    $( this ).children(".fa").addClass("fa-angle-down");    
+  }
+});
+</script>
+
+</html>
+

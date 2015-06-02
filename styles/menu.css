@@ -1,0 +1,87 @@
+#topbar{
+	position:fixed;
+	top:0px;
+	width:100%;
+	height:50px;
+	background-color:#ECF0F1;
+	z-index:999;
+	box-shadow:0px 0px 7px black;
+}
+
+#logo{
+  	position: absolute;
+	left:5px;
+	top:5px;
+	height:40px;
+}
+
+.topbutton{
+	-webkit-transition:color 0.3s ease;
+    transition:color 0.3s ease;
+	height:50px;
+	width:40px;
+	font-size:40px;
+	line-height:50px;
+	text-align:center;
+	color:#3a3a3a;
+}
+
+.topbutton:hover{
+	color:#5a5a5a;
+}
+
+#topbuttons{
+  	position: absolute;
+  	right:5px;
+}
+
+.topbuttonold{
+	-webkit-transition:color 0.3s ease;
+    transition:color 0.3s ease;
+	height:50px;
+	width:40px;
+	font-size:40px;
+	line-height:50px;
+	text-align:center;
+	color:#3a3a3a;
+}
+
+.topbuttonold:hover{
+	color:#5a5a5a;
+}
+
+#topbuttonsold{
+  	position: fixed;
+  	right:5px;
+  	top:5px;
+}
+
+#main{
+	position:relative;
+	width:100%;
+}
+
+#footer{
+	position:relative;
+	bottom:0px;
+	width:100%;
+	height:20px;
+	text-align:center;
+	z-index:999;
+}
+
+#info{
+	position: absolute;
+  	width: 100%;
+  	height: 100%;
+  	text-align: center;
+  	font-size:22px;
+  	line-height:50px;
+  	color:#999;
+}
+
+#emptyblock{
+	position:relative;
+	width:100%;
+	height:50px;
+}
